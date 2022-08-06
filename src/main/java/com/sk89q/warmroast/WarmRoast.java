@@ -116,12 +116,8 @@ public class WarmRoast extends TimerTask {
         String connectorAddr = vm.getAgentProperties().getProperty(
                 "com.sun.management.jmxremote.localConnectorAddress");
         if (connectorAddr == null) {
-            String agent = vm.getSystemProperties().getProperty("java.home")
-                    + File.separator + "lib" + File.separator
-                    + "management-agent.jar";
-            vm.loadAgent(agent);
-            connectorAddr = vm.getAgentProperties().getProperty(
-                    "com.sun.management.jmxremote.localConnectorAddress");
+            connectorAddr = vm.startLocalManagementAgent();
+            System.out.println(connectorAddr);
         }
 
         // Connect
