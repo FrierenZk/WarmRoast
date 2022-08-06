@@ -11,10 +11,8 @@ WarmRoast is an easy-to-use CPU sampling tool for JVM applications, but particul
  * Hover to highlight all child methods as a group.
  * See the percentage of CPU time for each method relative to its parent methods.
  * Maintains style and function with use of "File -> Save As" (in tested browsers).
-
-**Download Latest Version:** http://builds.enginehub.org/job/warmroast/last-successful/
-
-Java 7 and above is required to use WarmRoast.
+ 
+Java 17 and above is required to use current fork of WarmRoast.
 
 Screenshots
 -----------
@@ -34,18 +32,14 @@ Usage
 
 **Modded/vanilla servers:** If you are using a modded server, get a copy of [MCP](http://mcp.ocean-labs.de/index.php/MCP_Releases) for your server's Minecraft version, copy the files from conf/ somewhere, and point WarmRoast to it with `--mappings path/to/folder`. This helps readability a lot. Bukkit uses its own mapping, so a pure non-modded Bukkit server can't use MCP mappings.
 
-### Linux ###
+### How to Run ###
 
-    java -Djava.library.path=PATH_TO_JDK/jre/bin -cp PATH_TO_JDK/lib/tools.jar:warmroast-1.0.0-SNAPSHOT.jar com.sk89q.warmroast.WarmRoast --thread "Server thread"
+    java WarmRoast-1.0-SNAPSHOT.jar com.sk89q.warmroast.WarmRoast --thread "Server thread"
 
-### Windows ###
+* Or execute this command with thread is set by default to "Server thread"
 
-An example `PATH_TO_JDK` would be `C:\Program Files\Java\jdk1.7.0_45`
 
-    java -Djava.library.path=PATH_TO_JDK/jre/bin -cp PATH_TO_JDK/lib/tools.jar;warmroast-1.0.0-SNAPSHOT.jar com.sk89q.warmroast.WarmRoast --thread "Server thread"
-
-* The folder `PATH_TO_JDK/jre/bin` should contain "attach.dll"
-* The folder `PATH_TO_JDK/lib` should contain "tools.jar"
+    java -jar WarmRoast-1.0-SNAPSHOT.jar
 
 Parameters
 ----------
