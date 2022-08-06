@@ -11,8 +11,8 @@ WarmRoast is an easy-to-use CPU sampling tool for JVM applications, but particul
  * Hover to highlight all child methods as a group.
  * See the percentage of CPU time for each method relative to its parent methods.
  * Maintains style and function with use of "File -> Save As" (in tested browsers).
- 
-Java 17 and above is required to use current fork of WarmRoast.
+
+**Note: Current fork of WarmRoast is required for Java17 or above with MC 1.18+**
 
 Screenshots
 -----------
@@ -34,12 +34,14 @@ Usage
 
 ### How to Run ###
 
+    //run with thread fillter "Server thread"
     java WarmRoast-1.0-SNAPSHOT.jar com.sk89q.warmroast.WarmRoast --thread "Server thread"
 
-* Or execute this command with thread is set by default to "Server thread"
-
-
+    //or execute this command with filter is set by default to "Server thread"
     java -jar WarmRoast-1.0-SNAPSHOT.jar
+
+    //other parameters
+    java -jar WarmRoast-1.0-SNAPSHOT.jar [options]
 
 Parameters
 ----------
