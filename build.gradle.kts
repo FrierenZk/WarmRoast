@@ -25,8 +25,15 @@ dependencies {
 group = "com.sk89q"
 version = "1.0.0-SNAPSHOT"
 description = "WarmRoast"
-java.sourceCompatibility = JavaVersion.VERSION_1_7
+java.sourceCompatibility = JavaVersion.VERSION_17
 
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
+tasks {
+    compileJava {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "17"
+    }
+    compileTestJava {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "17"
+    }
 }
