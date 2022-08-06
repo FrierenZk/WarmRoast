@@ -19,7 +19,9 @@
 package com.sk89q.warmroast;
 
 import com.beust.jcommander.JCommander;
-import com.sun.tools.attach.*;
+import com.sun.tools.attach.AttachNotSupportedException;
+import com.sun.tools.attach.VirtualMachine;
+import com.sun.tools.attach.VirtualMachineDescriptor;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -179,8 +181,9 @@ public class WarmRoast extends TimerTask {
 
     public static void main(String[] args) {
         RoastOptions opt = new RoastOptions();
-        JCommander jc = new JCommander(opt, args);
-        jc.setProgramName("warmroast");
+        JCommander jc = new JCommander(opt);
+        jc.parse(args);
+        jc.setProgramName("WarmRoast");
 
         if (opt.help) {
             jc.usage();
