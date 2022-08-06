@@ -36,4 +36,12 @@ tasks {
         options.encoding = "UTF-8"
         sourceCompatibility = "17"
     }
+    jar {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        configurations["compileClasspath"].forEach { file: File ->
+            from(zipTree(file.absoluteFile)) {
+                exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
+            }
+        }
+    }
 }
