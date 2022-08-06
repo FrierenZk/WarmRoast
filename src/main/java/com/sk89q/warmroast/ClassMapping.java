@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package com.sk89q.warmroast;
 
@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 public class ClassMapping {
-    
+
     private final String obfuscated;
     private final String actual;
     private final Map<String, List<String>> methods = new HashMap<>();
-    
+
     public ClassMapping(String obfuscated, String actual) {
         this.obfuscated = obfuscated;
         this.actual = actual;
@@ -37,11 +37,11 @@ public class ClassMapping {
     public String getObfuscated() {
         return obfuscated;
     }
-    
+
     public String getActual() {
         return actual;
     }
-    
+
     public void addMethod(String obfuscated, String actual) {
         List<String> m = methods.get(obfuscated);
         if (m == null) {
@@ -50,7 +50,7 @@ public class ClassMapping {
         }
         m.add(actual);
     }
-    
+
     public List<String> mapMethod(String obfuscated) {
         List<String> m = methods.get(obfuscated);
         if (m == null) {
@@ -58,7 +58,7 @@ public class ClassMapping {
         }
         return m;
     }
-    
+
     @Override
     public String toString() {
         return getObfuscated() + "->" + getActual();

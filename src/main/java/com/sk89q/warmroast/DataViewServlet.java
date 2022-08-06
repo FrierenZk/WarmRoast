@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package com.sk89q.warmroast;
 
@@ -28,9 +28,9 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 public class DataViewServlet extends HttpServlet {
-    
+
     private static final long serialVersionUID = -2331397310804298286L;
-    
+
     private final WarmRoast roast;
 
     public DataViewServlet(WarmRoast roast) {
@@ -42,7 +42,7 @@ public class DataViewServlet extends HttpServlet {
                          HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
-        
+
         PrintWriter w = response.getWriter();
         w.println("<!DOCTYPE html><html><head><title>WarmRoast</title>");
         w.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">");
@@ -57,7 +57,7 @@ public class DataViewServlet extends HttpServlet {
             }
             if (nodes.size() == 0) {
                 w.println("<p class=\"no-results\">There are no results. " +
-                		"(Thread filter does not match thread?)</p>");
+                        "(Thread filter does not match thread?)</p>");
             }
         }
         w.println("</div>");
