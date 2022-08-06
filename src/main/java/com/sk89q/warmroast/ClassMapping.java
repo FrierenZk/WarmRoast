@@ -43,11 +43,7 @@ public class ClassMapping {
     }
 
     public void addMethod(String obfuscated, String actual) {
-        List<String> m = methods.get(obfuscated);
-        if (m == null) {
-            m = new ArrayList<>();
-            methods.put(obfuscated, m);
-        }
+        List<String> m = methods.computeIfAbsent(obfuscated, k -> new ArrayList<>());
         m.add(actual);
     }
 

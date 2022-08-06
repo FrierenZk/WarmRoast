@@ -51,7 +51,6 @@ public class WarmRoast extends TimerTask {
     private final Timer timer = new Timer("Roast Pan", true);
     private final McpMapping mapping = new McpMapping();
     private final SortedMap<String, StackNode> nodes = new TreeMap<>();
-    private JMXConnector connector;
     private MBeanServerConnection mbsc;
     private ThreadMXBean threadBean;
     private String filterThread;
@@ -96,7 +95,7 @@ public class WarmRoast extends TimerTask {
     }
 
     public void connect()
-            throws IOException, AgentLoadException, AgentInitializationException {
+            throws IOException {
         // Load the agent
         String connectorAddr = vm.getAgentProperties().getProperty(
                 "com.sun.management.jmxremote.localConnectorAddress");
@@ -107,7 +106,7 @@ public class WarmRoast extends TimerTask {
 
         // Connect
         JMXServiceURL serviceURL = new JMXServiceURL(connectorAddr);
-        connector = JMXConnectorFactory.connect(serviceURL);
+        JMXConnector connector = JMXConnectorFactory.connect(serviceURL);
         mbsc = connector.getMBeanServerConnection();
         try {
             threadBean = getThreadMXBean();
@@ -163,7 +162,7 @@ public class WarmRoast extends TimerTask {
         ServletContextHandler context = new ServletContextHandler();
         context.setContextPath("/");
 
-        String filesDir = WarmRoast.class.getResource("/www").toExternalForm();
+        String filesDir = Objects.requireNonNull(WarmRoast.class.getResource("/www")).toExternalForm();
         DefaultServlet defaultServlet = new DefaultServlet();
         ServletHolder holder = new ServletHolder("default", defaultServlet);
         holder.setInitParameter("resourceBase", filesDir);
@@ -178,7 +177,7 @@ public class WarmRoast extends TimerTask {
         server.join();
     }
 
-    public static void main(String[] args) throws AgentLoadException {
+    public static void main(String[] args) {
         RoastOptions opt = new RoastOptions();
         JCommander jc = new JCommander(opt, args);
         jc.setProgramName("warmroast");
@@ -190,7 +189,7 @@ public class WarmRoast extends TimerTask {
 
         System.err.println(SEPARATOR);
         System.err.println("WarmRoast");
-        System.err.println("http://github.com/sk89q/warmroast");
+        System.err.println("https://github.com/FrierenZk/WarmRoast");
         System.err.println(SEPARATOR);
         System.err.println();
 
@@ -226,13 +225,7 @@ public class WarmRoast extends TimerTask {
             List<VirtualMachineDescriptor> descriptors = VirtualMachine.list();
             System.err.println("Choose a VM:");
 
-            Collections.sort(descriptors, new Comparator<VirtualMachineDescriptor>() {
-                @Override
-                public int compare(VirtualMachineDescriptor o1,
-                                   VirtualMachineDescriptor o2) {
-                    return o1.displayName().compareTo(o2.displayName());
-                }
-            });
+            descriptors.sort(Comparator.comparing(VirtualMachineDescriptor::displayName));
 
             // Print list of VMs
             int i = 1;

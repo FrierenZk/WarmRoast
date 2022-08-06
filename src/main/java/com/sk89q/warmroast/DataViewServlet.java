@@ -25,10 +25,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serial;
 import java.util.Collection;
 
 public class DataViewServlet extends HttpServlet {
 
+    @Serial
     private static final long serialVersionUID = -2331397310804298286L;
 
     private final WarmRoast roast;
@@ -75,7 +77,7 @@ public class DataViewServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doGet(req, resp);
     }
 }

@@ -135,11 +135,7 @@ public class StackNode implements Comparable<StackNode> {
     }
 
     private void writeString(StringBuilder builder, int indent) {
-        StringBuilder b = new StringBuilder();
-        for (int i = 0; i < indent; i++) {
-            b.append(" ");
-        }
-        String padding = b.toString();
+        String padding = " ".repeat(Math.max(0, indent));
 
         for (StackNode child : getChildren()) {
             builder.append(padding).append(child.getName());
