@@ -22,11 +22,11 @@ Screenshots
 Usage
 -----
 
-1. Note the path of your JDK.
+1. Make sure the Java version is at least 17
 
 2. Download WarmRoast.
 
-3. Replace `PATH_TO_JDK` in the following commands with the path to your JDK and execute the program.
+3. Execute the program.
 
 **Note:** The example command line below includes `--thread "Server thread"`, which filters all threads but the main server thread. You can remove it to show all threads.
 
