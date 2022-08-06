@@ -6,6 +6,7 @@
 
 plugins {
     java
+    kotlin("jvm") version "1.7.10"
 }
 
 repositories {
@@ -16,14 +17,24 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.6.4")
+
     implementation("org.eclipse.jetty:jetty-servlet:11.0.11")
     implementation("commons-io:commons-io:2.11.0")
     implementation("net.sf.opencsv:opencsv:2.3")
     implementation("com.beust:jcommander:1.82")
+    implementation("org.slf4j:slf4j-jdk14:2.0.0-alpha7")
+
+    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 
 group = "com.sk89q"
-version = "1.0.0-SNAPSHOT"
+version = "1.0-SNAPSHOT"
 description = "WarmRoast"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -37,6 +48,9 @@ tasks {
         sourceCompatibility = "17"
     }
     jar {
+        manifest {
+            attributes["Main-Class"] = "com.frierenzk.warmroast.MainKt"
+        }
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         configurations["compileClasspath"].forEach { file: File ->
             from(zipTree(file.absoluteFile)) {
