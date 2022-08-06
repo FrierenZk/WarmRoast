@@ -16,10 +16,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.eclipse.jetty:jetty-servlet:9.0.3.v20130506")
-    implementation("commons-io:commons-io:2.4")
-    implementation("net.sf.opencsv:opencsv:2.0")
-    implementation("com.beust:jcommander:1.30")
+    implementation("org.eclipse.jetty:jetty-servlet:11.0.11")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("net.sf.opencsv:opencsv:2.3")
+    implementation("com.beust:jcommander:1.82")
 }
 
 group = "com.sk89q"
