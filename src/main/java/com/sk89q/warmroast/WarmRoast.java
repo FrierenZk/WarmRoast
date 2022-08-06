@@ -18,6 +18,19 @@
 
 package com.sk89q.warmroast;
 
+import com.beust.jcommander.JCommander;
+import com.sun.tools.attach.*;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -26,35 +39,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.net.InetSocketAddress;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeMap;
-
-import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-
-import com.beust.jcommander.JCommander;
-import com.sun.tools.attach.AgentInitializationException;
-import com.sun.tools.attach.AgentLoadException;
-import com.sun.tools.attach.AttachNotSupportedException;
-import com.sun.tools.attach.VirtualMachine;
-import com.sun.tools.attach.VirtualMachineDescriptor;
+import java.util.*;
 
 public class WarmRoast extends TimerTask {
 
@@ -177,20 +162,19 @@ public class WarmRoast extends TimerTask {
 
         ServletContextHandler context = new ServletContextHandler();
         context.setContextPath("/");
-        context.addServlet(new ServletHolder(new DataViewServlet(this)), "/stack");
 
-        ResourceHandler resources = new ResourceHandler();
         String filesDir = WarmRoast.class.getResource("/www").toExternalForm();
-        resources.setResourceBase(filesDir);
-        resources.setDirectoriesListed(true);
-        resources.setWelcomeFiles(new String[]{ "index.html" });
- 
-        HandlerList handlers = new HandlerList();
-        handlers.addHandler(context);
-        handlers.addHandler(resources);
-        server.setHandler(handlers);
+        DefaultServlet defaultServlet = new DefaultServlet();
+        ServletHolder holder = new ServletHolder("default", defaultServlet);
+        holder.setInitParameter("resourceBase", filesDir);
 
+        context.addServlet(holder,"/*");
+        context.addServlet(new ServletHolder(new DataViewServlet(this)), "/stack");
+        context.setWelcomeFiles(new String[]{ "index.html" });
+
+        server.setHandler(context);
         server.start();
+        //server.dump(System.err);
         server.join();
     }
 
