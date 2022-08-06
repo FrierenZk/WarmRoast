@@ -6,7 +6,6 @@
 
 plugins {
     java
-    `maven-publish`
 }
 
 repositories {
@@ -27,12 +26,6 @@ group = "com.sk89q"
 version = "1.0.0-SNAPSHOT"
 description = "WarmRoast"
 java.sourceCompatibility = JavaVersion.VERSION_1_7
-
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
-    }
-}
 
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
